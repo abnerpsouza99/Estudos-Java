@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
 
         int menu, escolhaBebida, menuBebidasAlcoolicas, menuBebidasNaoAcoolicas, qtdRemove;
-        int menuEditar, qtdAtualizada;
+        int menuEditar, qtdAtualizada, qtdAtualiza;
         String nomeBebida;
 
         ArrayList<BebidaAlcoolica> bebidaAlcoolica = new ArrayList();
@@ -21,7 +21,7 @@ public class Main {
             System.out.println("------------- MENU -------------");
             System.out.println("1 - Cadastrar Bebida");
             System.out.println("2 - Lista de Bebidas Cadastradas");
-            System.out.println("3 - Realizar Pedido");
+            System.out.println("3 - Editar Estoque");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma das opções acima => ");
             menu = ler.nextInt();
@@ -61,9 +61,9 @@ public class Main {
                                         System.out.print("Quantidade: ");
                                         int quantidade;
                                         quantidade = ler.nextInt();
+                                        ler.nextLine();
                                         System.out.print("Tipo de Cerveja: ");
                                         String tipo;
-                                        ler.nextLine();
                                         tipo = ler.nextLine();
                                         System.out.print("Volume: ");
                                         double volume;
@@ -85,8 +85,8 @@ public class Main {
                                         valor = ler.nextDouble();
                                         System.out.print("Quantidade: ");
                                         quantidade = ler.nextInt();
-                                        System.out.print("Tipo de Cerveja: ");
                                         ler.nextLine();
+                                        System.out.print("Tipo de Destilado: ");
                                         tipo = ler.nextLine();
                                         System.out.print("Volume: ");
                                         volume = ler.nextDouble();
@@ -106,9 +106,6 @@ public class Main {
                                         valor = ler.nextDouble();
                                         System.out.print("Quantidade: ");
                                         quantidade = ler.nextInt();
-                                        System.out.print("Tipo de Cerveja: ");
-                                        ler.nextLine();
-                                        tipo = ler.nextLine();
                                         System.out.print("Volume: ");
                                         volume = ler.nextDouble();
                                         System.out.print("Teor Alcoólico: ");
@@ -127,9 +124,6 @@ public class Main {
                                         valor = ler.nextDouble();
                                         System.out.print("Quantidade: ");
                                         quantidade = ler.nextInt();
-                                        System.out.print("Tipo de Cerveja: ");
-                                        ler.nextLine();
-                                        tipo = ler.nextLine();
                                         System.out.print("Volume: ");
                                         volume = ler.nextDouble();
                                         System.out.print("Teor Alcoólico: ");
@@ -154,10 +148,8 @@ public class Main {
                                 switch (menuBebidasNaoAcoolicas) {
                                     case 1:
                                         System.out.println("-------- AGUA ---------");
-                                        Agua agua = new Agua("", "", 0, 0, 0);
-                                        System.out.print("Tipo: ");
+                                        Agua agua = new Agua("", 0, 0, 0);
                                         ler.nextLine();
-                                        agua.setTipo(ler.nextLine());
                                         System.out.print("Marca: ");
                                         agua.setMarca(ler.nextLine());
                                         System.out.print("Valor: R$");
@@ -171,10 +163,8 @@ public class Main {
                                         break;
                                     case 2:
                                         System.out.println("-------- REFRIGERANTE ---------");
-                                        Refrigerante refri = new Refrigerante("", "", 0, 0, 0);
-                                        System.out.print("Tipo: ");
+                                        Refrigerante refri = new Refrigerante("", 0, 0, 0);
                                         ler.nextLine();
-                                        refri.setTipo(ler.nextLine());
                                         System.out.print("Marca: ");
                                         refri.setMarca(ler.nextLine());
                                         System.out.print("Valor: R$");
@@ -257,19 +247,21 @@ public class Main {
                         nomeBebida = ler.nextLine();
                         
                         for(BebidaAlcoolica bebA: bebidaAlcoolica){
-                            if(bebA.getMarca() == nomeBebida){
-                                System.out.println("A bebida selecionada foi: ");
+                            if(nomeBebida.equals(bebA.getMarca())){
+                                do{
+                                System.out.println("A bebida selecionada foi: ");                            
                                 bebA.mostrarDados();
                                 System.out.println(" ");
                                 System.out.println("------- EDITAR BEBIDA -------");
                                 System.out.println("1 - Editar quantidade");
-                                System.out.println("2 - Remover bebida");
+                                System.out.println("2 - Adicionar quantidade");
                                 System.out.println("0 - Sair");
                                 menuEditar = ler.nextInt();
                                 
-                                do{
+                                
                                     switch(menuEditar){
                                         case 1:
+                                            ler.nextLine();
                                             System.out.print("Informe a quantidade que deseja remover: ");
                                             qtdRemove = ler.nextInt();
                                             if(qtdRemove <= 0 || qtdRemove > bebA.getQuantidade()){
@@ -278,11 +270,17 @@ public class Main {
                                             } else{
                                                 qtdAtualizada = bebA.getQuantidade() - qtdRemove;
                                                 bebA.setQuantidade(qtdAtualizada);
+                                                System.out.println("Quantidade atual: " + bebA.getQuantidade());
+                                                menuEditar = 0;
                                             }
                                             break;
                                         case 2:
-                                            System.out.println("Bebida removida com sucesso!");
-                                            bebidaAlcoolica.remove(bebA.getIdProduto());
+                                            ler.nextLine();
+                                            System.out.print("Informe a quantidade que deseja inserir: ");
+                                            qtdAtualiza = ler.nextInt();
+                                            qtdAtualizada = bebA.getQuantidade() + qtdAtualiza;
+                                            bebA.setQuantidade(qtdAtualizada);
+                                            System.out.println("Quantidade atual: " + bebA.getQuantidade());
                                             break;
                                         case 0:
                                             System.out.println("");
@@ -293,14 +291,55 @@ public class Main {
                                 }while(menuEditar != 0);
                                 
                             } else{
-                                System.out.println("Código informado inválido!");
+                                System.out.println("Marca informada inválida!");
                             }
-                            
                         }
                         
+                        for(BebidaNaoAlcoolica bebNA: bebidaNaoAlcoolica){
+                            if(nomeBebida.equals(bebNA.getMarca())){
+                                System.out.println("A bebida selecionada foi: ");
+                                bebNA.mostrarDados();
+                                System.out.println(" ");
+                                System.out.println("------- EDITAR BEBIDA -------");
+                                System.out.println("1 - Editar quantidade");
+                                System.out.println("2 - Remover bebida");
+                                System.out.println("0 - Sair");
+                                menuEditar = ler.nextInt();
+                                
+                                do{
+                                    switch(menuEditar){
+                                        case 1:
+                                            ler.nextLine();
+                                            System.out.print("Informe a quantidade que deseja remover: ");
+                                            qtdRemove = ler.nextInt();
+                                            if(qtdRemove <= 0 || qtdRemove > bebNA.getQuantidade()){
+                                                System.out.println("Quantidade informada inválida!");
+                                                System.out.println("Escolha novamente uma das opções do menu...");
+                                            } else{
+                                                qtdAtualizada = bebNA.getQuantidade() - qtdRemove;
+                                                bebNA.setQuantidade(qtdAtualizada);
+                                                System.out.println("Quantidade atual: " + bebNA.getQuantidade());
+                                                menuEditar = 0;
+                                            }
+                                            break;
+                                        case 2:
+                                            System.out.println("Bebida removida com sucesso!");
+                                            bebidaNaoAlcoolica.remove(bebNA.getIdProduto());
+                                            break;
+                                        case 0:
+                                            System.out.println("");
+                                            break;
+                                        default:
+                                        System.out.println("Opção inválida!");
+                                    }
+                                }while(menuEditar != 0);
+                                
+                            } else{
+                                System.out.println("Marca informada inválida!");
+                            }
+                        }
                     }
                     break;
-                    
             }
         } while (menu != 0);
         

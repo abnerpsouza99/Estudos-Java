@@ -79,14 +79,14 @@ public class Produto {
     }
     
     public void mostrarDados() {
-        System.out.println("=========================");
-        System.out.println("DADOS DO PRODUTO");
+        System.out.println("--------------------------------------");
+        System.out.println("---------- DADOS DO PRODUTO ----------");
         System.out.println("Código: " + getIdProduto());
-        System.out.println("Tipo: " + this.getTipo());
         System.out.println("Marca: " + this.getMarca());
         System.out.println("Volume: " + this.getVolume());
         System.out.println("Quantidade: " + this.getQuantidade());
         System.out.println("Valor: " + this.getValor());
+        System.out.println("--------------------------------------");
     }
     
 }

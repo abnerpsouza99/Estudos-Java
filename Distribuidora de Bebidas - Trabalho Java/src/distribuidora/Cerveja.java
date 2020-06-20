@@ -11,10 +11,24 @@ package distribuidora;
  */
 public class Cerveja extends BebidaAlcoolica {
     
-    String tipo;
+    private String tipo;
     
     public Cerveja(double teorAlcoolico, String marca, double valor, double volume, int quantidade, String tipo) {
         super(teorAlcoolico, marca, valor, volume, quantidade);
+        this.tipo = tipo;
+    }
+    
+    @Override
+    public void mostrarDados() {
+        super.mostrarDados();
+        System.out.println("Tipo: " + getTipo());
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 

@@ -11,8 +11,8 @@ package distribuidora;
  */
 public class Agua extends BebidaNaoAlcoolica {
 
-    public Agua(String tipo, String marca, double valor, double volume, int quantidade) {
-        super(tipo, marca, valor, volume, quantidade);
+    public Agua(String marca, double valor, double volume, int quantidade) {
+        super(marca, valor, volume, quantidade);
     }
 
     
